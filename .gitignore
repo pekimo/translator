@@ -34,3 +34,4 @@ proguard/
 # Log Files
 *.log
 >>>>>>> 1fe496bb7b01f03cd9aa09c9689ffbf9673524e8
+.gitignore
