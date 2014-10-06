@@ -21,4 +21,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    'org.apache.httpcomponents:httpclient:4.3.5'
+    'org.json:json:20140107'
 }
