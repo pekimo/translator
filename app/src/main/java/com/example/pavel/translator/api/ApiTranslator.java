@@ -3,6 +3,8 @@
  */
 package com.example.pavel.translator.api;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URLEncoder;
@@ -23,21 +25,19 @@ public class ApiTranslator {
     private static final String URL_DETECT = "https://translate.yandex.net/api/v1.5/tr.json/detect";
     private static final String URL_TRANSLATE = "https://translate.yandex.net/api/v1.5/tr.json/translate";
     private static final String APP_LANG = "&ui=ru";
-    private HashSet<String> dirs = new HashSet<String>();
-    private HashMap<String, String> langs = new HashMap<String, String>();
-
-    public ApiTranslator() throws Exception {
-
-    }
-
-    public HashSet<String> getDirs() throws NullPointerException {
-        return this.dirs;
-    }
+//    private HashSet<String> dirs = new HashSet<String>();
+//    private HashMap<String, String> langs = new HashMap<String, String>();
+//
+//    public HashSet<String> getDirs() throws NullPointerException {
+//        return this.dirs;
+//    }
 
     private String sendGet(String url) throws Exception {
+        Log.d("_____________", "sendGet1");
         HttpClient client = new DefaultHttpClient();
         HttpGet request = new HttpGet(url);
         HttpResponse response = client.execute(request);
+        Log.d("_____________", "sendGet2");
         BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
         StringBuffer result = new StringBuffer();
         String line = "";
@@ -47,14 +47,14 @@ public class ApiTranslator {
         return result.toString();
     }
 
-    private void parseDirsLangs(String str) throws Exception {
-        JSONObject obj = new JSONObject(str);
-        throwExceptionIfError(obj);
-        JSONArray dirs = obj.getJSONArray("dirs");
-        JSONArrayToHashSet(dirs, this.dirs);
-        JSONObject langs = obj.getJSONObject("langs");
-        JSONObjectToHashMap(langs, this.langs);
-    }
+//    private void parseDirsLangs(String str) throws Exception {
+//        JSONObject obj = new JSONObject(str);
+//        throwExceptionIfError(obj);
+//        JSONArray dirs = obj.getJSONArray("dirs");
+//        JSONArrayToHashSet(dirs, this.dirs);
+//        JSONObject langs = obj.getJSONObject("langs");
+//        JSONObjectToHashMap(langs, this.langs);
+//    }
 
     private void JSONArrayToHashSet(JSONArray ja, HashSet<String> hs) throws JSONException {
         for (int i = 0; i < ja.length(); i++) {
@@ -85,10 +85,11 @@ public class ApiTranslator {
         return (String)translated.get(0);
     }
 
-    public HashMap<String, String> getLangs() throws Exception {
+    public String getLangs() throws Exception {
         String response = sendGet(URL_GET_LANG + KEY + APP_LANG);
-        parseDirsLangs(response);
-        return this.langs;
+//        Log.d("_____________", response);
+//        parseDirsLangs(response);
+        return response;
     }
 
 

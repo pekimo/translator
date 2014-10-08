@@ -34,7 +34,9 @@ public class MyActivity extends Activity {
         Broadcast = new BroadcastReceiver() {
 
             public void onReceive(Context context, Intent intent) {
+                Log.d("LOG_TAG", "My Activity 333");
                 Object langs = intent.getExtras().get("Langs");
+                Log.d("LOG_TAG", "My Activity 334");
                 Log.d("LOG_TAG", langs.toString());
             }
 

@@ -1,5 +1,6 @@
 package com.example.pavel.translator;
 
+import android.app.IntentService;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
@@ -12,7 +13,7 @@ import java.util.HashMap;
 public class TranslatorService extends Service {
 
     public ApiTranslator Translator;
-    HashMap<String, String> langs;
+    public String langs;
 
     @Override
     public void onCreate() {
@@ -30,6 +31,9 @@ public class TranslatorService extends Service {
         Log.d("LOG_TAG", "IN Tranlator Service 111");
         try {
             langs = Translator.getLangs();
+
+            Log.d("LOG_Tag", langs);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
