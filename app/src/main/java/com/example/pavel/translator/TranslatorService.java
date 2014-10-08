@@ -8,26 +8,18 @@ import android.util.Log;
 
 import  com.example.pavel.translator.api.ApiTranslator;
 
-import java.util.HashMap;
-
-public class TranslatorService extends Service {
+public class TranslatorService extends IntentService {
 
     public ApiTranslator Translator;
     public String langs;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        Log.d("LOG_TAG", "IN Tranlator Service 000");
-        try {
-            Translator = new ApiTranslator();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public TranslatorService() {
+        super("TranslatorService");
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    protected void onHandleIntent(Intent intent) {
+        Translator = new ApiTranslator();
         Log.d("LOG_TAG", "IN Tranlator Service 111");
         try {
             langs = Translator.getLangs();
@@ -40,18 +32,6 @@ public class TranslatorService extends Service {
         intent.putExtra("Langs", langs);
         sendBroadcast(intent);
         Log.d("LOG_TAG", "IN Tranlator Service 222");
-        return super.onStartCommand(intent, flags, startId);
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("LOG_TAG", "onDestroy");
     }
 
 }

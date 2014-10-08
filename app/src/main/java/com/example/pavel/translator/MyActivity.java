@@ -31,21 +31,19 @@ public class MyActivity extends Activity {
         TransFragment.add(R.id.mainActivity, TranslatorFragment);
         TransFragment.commit();
 
-        Broadcast = new BroadcastReceiver() {
-
-            public void onReceive(Context context, Intent intent) {
-                Log.d("LOG_TAG", "My Activity 333");
-                Object langs = intent.getExtras().get("Langs");
-                Log.d("LOG_TAG", "My Activity 334");
-                Log.d("LOG_TAG", langs.toString());
-            }
-
-        };
+//        Broadcast = new BroadcastReceiver() {
+//
+//            public void onReceive(Context context, Intent intent) {
+//                Log.d("LOG_TAG", "My Activity 333");
+//                Object langs = intent.getExtras().get("Langs");
+//                Log.d("LOG_TAG", "My Activity 334");
+//                Log.d("LOG_TAG", langs.toString());
+//            }
+//        };
 
         Log.d("LOG_TAG", "My Activity 111");
 
         startService(new Intent(this, TranslatorService.class));
-
 
         Log.d("LOG_TAG", "My Activity 222");
 
