@@ -21,6 +21,7 @@
         </activity>
 
         <service android:name=".TranslatorService"/>
+        <receiver android:name=".MyActivity$Receiver" />
 
     </application>
 

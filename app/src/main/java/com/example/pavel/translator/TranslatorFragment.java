@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -20,8 +22,7 @@ public class TranslatorFragment extends Fragment {
     public Spinner SpnOn;
     public TextView TextViewString;
     public EditText EditTextString;
-    public String data[] = new String[] { "one", "two", "three", "four", "one", "two", "three",
-            "four","one", "two", "three", "four","one", "two", "three", "four" };
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,8 +36,7 @@ public class TranslatorFragment extends Fragment {
         SpnFrom = (Spinner) view.findViewById(R.id.spn_language_from);
         SpnOn = (Spinner) view.findViewById(R.id.spn_language_on);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, data);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        SimpleAdapter adapter = new SimpleAdapter(getActivity(), MyActivity.getLangs(), android.R.layout.simple_spinner_item, new String[] {"Langs"}, new int[] {android.R.layout.simple_spinner_dropdown_item} );
 
         SpnFrom.setAdapter(adapter);
         SpnOn.setAdapter(adapter);
