@@ -11,17 +11,13 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.util.Log;
+
 
 public class TranslatorFragment extends Fragment {
 
@@ -32,7 +28,6 @@ public class TranslatorFragment extends Fragment {
     public EditText EditTextString;
     public String BROADCAST_ACTION = "Activity_broadcast";
     public BroadcastReceiver Broadcast;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +46,9 @@ public class TranslatorFragment extends Fragment {
 
         SpnFrom.setAdapter(adapter);
         SpnOn.setAdapter(adapter);
+
+        SpnFrom.setSelection(MyActivity.getPositionLand("Русский"));
+        SpnOn.setSelection(MyActivity.getPositionLand("Английский"));
 
         BtnSwap = (ImageButton) view.findViewById(R.id.btn_swap);
         BtnSwap.setOnClickListener(new View.OnClickListener() {
@@ -74,17 +72,16 @@ public class TranslatorFragment extends Fragment {
                             Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(EditTextString.getWindowToken(), 0);
                 }
-
+                String dirs = parseSpinner();
                 getActivity().startService(new Intent(getActivity(), TranslatorService.class)
                         .putExtra("COMMAND", 2)
-                        .putExtra("TEXT", EditTextString.getText().toString())
-                        .putExtra("DIRS", "ru-en"));
+                        .putExtra("TEXT", EditTextString.getText())
+                        .putExtra("DIRS", dirs));
+                Log.d("DIRS____", dirs);
 
                 return false;
             }
         });
-
-
 
         // создаем фильтр для BroadcastReceiver
         IntentFilter filter = new IntentFilter(BROADCAST_ACTION);
@@ -93,6 +90,12 @@ public class TranslatorFragment extends Fragment {
 
         return view;
 
+    }
+
+    public String parseSpinner() {
+        String from = SpnFrom.getSelectedItem().toString();
+        String on = SpnOn.getSelectedItem().toString();
+        return MyActivity.getReductions(from) + "-" + MyActivity.getReductions(on);
     }
 
 }
