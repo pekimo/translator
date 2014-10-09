@@ -50,6 +50,8 @@ public class TranslatorFragment extends Fragment {
 
         SpnFrom.setSelection(MyActivity.getPositionLand("Русский"));
         SpnOn.setSelection(MyActivity.getPositionLand("Английский"));
+        SpnFrom.setPrompt("Выберите язык ввода");
+        SpnOn.setPrompt("Выберите язык перевода");
 
         SpnOn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
