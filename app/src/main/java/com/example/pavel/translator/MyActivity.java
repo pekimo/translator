@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -67,7 +68,7 @@ public class MyActivity extends Activity {
 
     private void JSONArrayToHashSet(JSONArray ja) throws JSONException {
         for (int i = 0; i < ja.length(); i++) {
-            dirs.add((String)ja.get(i));
+            dirs.add((String) ja.get(i));
         }
     }
 
@@ -119,6 +120,11 @@ public class MyActivity extends Activity {
                     TransFragment.commit();
                     break;
                 }
+                case 2: {
+                    String text = intent.getStringExtra("DATA");
+                        ((TextView) TranslatorFragment.getView().findViewById(R.id.textViewString)).setText(text);
+                        break;
+                    }
                 case -1: {
                     Toast toast = Toast.makeText(context, "Проверьте сооединение с интернетом", Toast.LENGTH_SHORT);
                     toast.show();

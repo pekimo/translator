@@ -30,7 +30,7 @@ public class TranslatorFragment extends Fragment {
     public Spinner SpnOn;
     public TextView TextViewString;
     public EditText EditTextString;
-    public String BROADCAST_ACTION = "Fragment_broadcast";
+    public String BROADCAST_ACTION = "Activity_broadcast";
     public BroadcastReceiver Broadcast;
 
 
@@ -76,7 +76,7 @@ public class TranslatorFragment extends Fragment {
                 }
 
                 getActivity().startService(new Intent(getActivity(), TranslatorService.class)
-                        .putExtra("COMMAND", 1)
+                        .putExtra("COMMAND", 2)
                         .putExtra("TEXT", EditTextString.getText())
                         .putExtra("DIRS", "ru-en"));
 
@@ -85,25 +85,7 @@ public class TranslatorFragment extends Fragment {
         });
 
 
-        Broadcast = new BroadcastReceiver() {
-            // действия при получении сообщений
-            public void onReceive(Context context, Intent intent) {
-                int command = intent.getIntExtra("COMMAND", 0);
-                switch (command) {
-                    case 2: {
-                        String text = intent.getStringExtra("DATA");
-                        TextViewString.setText(text);
-                        break;
-                    }
-                    case -1: {
-                        Toast toast = Toast.makeText(context, "Проверьте сооединение с интернетом", Toast.LENGTH_SHORT);
-                        toast.show();
-                        break;
-                    }
-                }
 
-            }
-        };
         // создаем фильтр для BroadcastReceiver
         IntentFilter filter = new IntentFilter(BROADCAST_ACTION);
         // регистрируем (включаем) BroadcastReceiver

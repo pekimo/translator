@@ -37,7 +37,7 @@ public class TranslatorService extends IntentService {
                 break;
             }
             case 2: {//получить перевод
-                broadcastIntent.setAction(BROADCAST_ACTION_FRAGMENT);
+                broadcastIntent.setAction(BROADCAST_ACTION_ACTIVITY);
                 String textIn = intent.getStringExtra("TEXT");
                 String dirs = intent.getStringExtra("DIRS");
                 String textOut = "";
