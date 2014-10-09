@@ -82,6 +82,17 @@ public class MyActivity extends Activity {
         Log.d("LOG_TAG", "Reciever 333");
     }
 
+    public static String getReductions(String key) {
+        return langsReductions.get(key);
+    }
+
+    public static int getPositionLand(String lang) {
+        return langs.indexOf(lang);
+    }
+
+    public static boolean isDirs(String d) {
+        return dirs.contains(d);
+    }
 
     public static HashMap<String, String> getLangsReductions() {
         return langsReductions;

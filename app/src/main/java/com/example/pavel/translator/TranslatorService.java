@@ -9,8 +9,6 @@ public class TranslatorService extends IntentService {
 
     public ApiTranslator Translator;
     public String BROADCAST_ACTION_ACTIVITY = "Activity_broadcast";
-    public String BROADCAST_ACTION_FRAGMENT = "Fragment_broadcast";
-
 
     public TranslatorService() {
         super("TranslatorService");
