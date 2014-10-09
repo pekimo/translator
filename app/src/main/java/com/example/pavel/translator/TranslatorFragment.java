@@ -77,7 +77,8 @@ public class TranslatorFragment extends Fragment {
 
                 getActivity().startService(new Intent(getActivity(), TranslatorService.class)
                         .putExtra("COMMAND", 1)
-                        .putExtra("TEXT", EditTextString.getText()));
+                        .putExtra("TEXT", EditTextString.getText())
+                        .putExtra("DIRS", "ru-en"));
 
                 return false;
             }
@@ -100,7 +101,6 @@ public class TranslatorFragment extends Fragment {
                         break;
                     }
                 }
-
 
             }
         };
