@@ -1,9 +1,12 @@
 package com.example.pavel.translator;
 
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +30,8 @@ public class TranslatorFragment extends Fragment {
     public Spinner SpnOn;
     public TextView TextViewString;
     public EditText EditTextString;
+    public String BROADCAST_ACTION = "Fragment_broadcast";
+    public BroadcastReceiver Broadcast;
 
 
     @Override
@@ -58,23 +63,47 @@ public class TranslatorFragment extends Fragment {
             }
         });
 
-        TextViewString.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        EditTextString.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+
                 if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                    getActivity().getWindow().setSoftInputMode(
-                        WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+
+                    
                 }
                 return false;
             }
         });
 
 
+        Broadcast = new BroadcastReceiver() {
+            // действия при получении сообщений
+            public void onReceive(Context context, Intent intent) {
+                int command = intent.getIntExtra("COMMAND", 0);
+                switch (command) {
+                    case 2: {
+                        String text = intent.getStringExtra("DATA");
+                        TextViewString.setText(text);
+                        break;
+                    }
+                    case -1: {
+                        Toast toast = Toast.makeText(context, "Проверьте сооединение с интернетом", Toast.LENGTH_SHORT);
+                        toast.show();
+                        break;
+                    }
+                }
+
+
+            }
+        };
+        // создаем фильтр для BroadcastReceiver
+        IntentFilter filter = new IntentFilter(BROADCAST_ACTION);
+        // регистрируем (включаем) BroadcastReceiver
+        getActivity().registerReceiver(Broadcast, filter);
+
         return view;
 
     }
-
-
-
 
 }

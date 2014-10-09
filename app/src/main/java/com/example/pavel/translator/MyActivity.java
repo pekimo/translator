@@ -27,13 +27,13 @@ public class MyActivity extends Activity {
     public Fragment TranslatorFragment;
     public FragmentTransaction TransFragment;
     public Receiver Broadcast;
-    public static final String Key = "Dirs";
-    public static final String Value = "Langs";
+
     public static ArrayList<String> langs = new ArrayList<String>();
     public static ArrayList<String> dirs = new ArrayList<String>();
     public static HashMap<String, String> langsReductions = new HashMap<String, String>();
 
     public static final String Error = "ERROR";
+    public String BROADCAST_ACTION = "Activity_broadcast";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class MyActivity extends Activity {
 
         Broadcast = new Receiver();
 
-        IntentFilter filter = new IntentFilter(Receiver.ACTION);
+        IntentFilter filter = new IntentFilter(BROADCAST_ACTION);
         filter.addCategory(Intent.CATEGORY_DEFAULT);
         registerReceiver(Broadcast, filter);
 
@@ -95,8 +95,6 @@ public class MyActivity extends Activity {
     }
 
     public class Receiver extends BroadcastReceiver {
-
-        public static final String ACTION = "received";
 
         @Override
         public void onReceive(Context context, Intent intent) {
