@@ -81,10 +81,7 @@ public class TranslatorFragment extends Fragment {
         EditTextString.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-//                Integer keyCode = keyEvent.getKeyCode();
-//                Log.d("Event", keyEvent.toString());
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-//                    Log.d("KEY", keyCode.toString());
                     InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
                             Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(EditTextString.getWindowToken(), 0);
@@ -113,7 +110,7 @@ public class TranslatorFragment extends Fragment {
         String dirs = parseSpinner();
 
         String text = EditTextString.getText().toString();
-        if (text.equals("")) {
+        if (!text.equals("")) {
             getActivity().startService(new Intent(getActivity(), TranslatorService.class)
                     .putExtra("COMMAND", 2)
                     .putExtra("TEXT", text)
