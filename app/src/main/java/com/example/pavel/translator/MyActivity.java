@@ -78,6 +78,7 @@ public class MyActivity extends Activity {
 
     private void JSONObjectToHashMap(JSONObject jo) throws JSONException {
         Iterator it = jo.keys();
+        langs.clear();
         while (it.hasNext()) {
             String n = (String)it.next();
             langs.add((String)jo.get(n));
