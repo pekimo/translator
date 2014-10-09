@@ -75,7 +75,7 @@ public class TranslatorFragment extends Fragment {
                 String dirs = parseSpinner();
                 getActivity().startService(new Intent(getActivity(), TranslatorService.class)
                         .putExtra("COMMAND", 2)
-                        .putExtra("TEXT", EditTextString.getText())
+                        .putExtra("TEXT", EditTextString.getText().toString())
                         .putExtra("DIRS", dirs));
                 Log.d("DIRS____", dirs);
 
