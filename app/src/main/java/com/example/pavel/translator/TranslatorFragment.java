@@ -21,7 +21,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.util.Log;
 
 public class TranslatorFragment extends Fragment {
 
@@ -66,12 +66,19 @@ public class TranslatorFragment extends Fragment {
         EditTextString.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-
-                if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-
-
-                    
+                Integer keyCode = keyEvent.getKeyCode();
+                Log.d("Event", keyEvent.toString());
+                if (keyEvent.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    Log.d("KEY", keyCode.toString());
+                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(EditTextString.getWindowToken(), 0);
                 }
+
+                getActivity().startService(new Intent(getActivity(), TranslatorService.class)
+                        .putExtra("COMMAND", 1)
+                        .putExtra("TEXT", EditTextString.getText()));
+
                 return false;
             }
         });
