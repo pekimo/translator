@@ -28,15 +28,13 @@ import java.util.Iterator;
 
 public class MyActivity extends Activity {
 
-    public Fragment PreloaderFragment;
-    public Fragment TranslatorFragment;
-    public FragmentTransaction TransFragment;
-    public Receiver Broadcast;
-
+    private Fragment PreloaderFragment;
+    private Fragment TranslatorFragment;
+    private FragmentTransaction TransFragment;
+    private Receiver Broadcast;
     public static ArrayList<String> langs = new ArrayList<String>();
     public static ArrayList<String> dirs = new ArrayList<String>();
     public static HashMap<String, String> langsReductions = new HashMap<String, String>();
-
     public static final String Error = "ERROR";
     public String BROADCAST_ACTION = "Activity_broadcast";
 
@@ -143,7 +141,7 @@ public class MyActivity extends Activity {
                         break;
                     }
                 case -1: {
-                    Toast toast = Toast.makeText(context, "Проверьте сооединение с интернетом", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(context, "озникла какая-то ошибка", Toast.LENGTH_SHORT);
                     toast.show();
                     break;
                 }

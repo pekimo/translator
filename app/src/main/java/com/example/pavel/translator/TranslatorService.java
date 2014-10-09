@@ -31,6 +31,7 @@ public class TranslatorService extends IntentService {
                     broadcastIntent.putExtra("DATA", langs);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    command = -1;
                 }
                 break;
             }
@@ -43,6 +44,7 @@ public class TranslatorService extends IntentService {
                     textOut = Translator.translate(textIn, dirs);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    command = -1;
                 }
                 broadcastIntent.putExtra("DATA", textOut);
                 break;
