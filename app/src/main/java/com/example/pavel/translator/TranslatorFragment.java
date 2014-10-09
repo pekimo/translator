@@ -110,7 +110,7 @@ public class TranslatorFragment extends Fragment {
         String dirs = parseSpinner();
 
         String text = EditTextString.getText().toString();
-        if (text.equals("")) {
+        if (!text.equals("")) {
             getActivity().startService(new Intent(getActivity(), TranslatorService.class)
                     .putExtra("COMMAND", 2)
                     .putExtra("TEXT", text)
