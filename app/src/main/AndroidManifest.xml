@@ -24,6 +24,8 @@
         <service android:name=".TranslatorService"/>
         <receiver android:name=".MyActivity$Receiver" />
 
+        <receiver android:name=".MyActivity$NetworkStateReceiver"/>
+
     </application>
 
 </manifest>

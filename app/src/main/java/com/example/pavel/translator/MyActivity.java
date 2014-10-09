@@ -7,6 +7,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +34,7 @@ public class MyActivity extends Activity {
     private Fragment TranslatorFragment;
     private FragmentTransaction TransFragment;
     private Receiver Broadcast;
+    private NetworkStateReceiver NetworkState;
     public static ArrayList<String> langs = new ArrayList<String>();
     public static ArrayList<String> dirs = new ArrayList<String>();
     public static HashMap<String, String> langsReductions = new HashMap<String, String>();
@@ -53,10 +56,16 @@ public class MyActivity extends Activity {
         startService(new Intent(this, TranslatorService.class).putExtra("COMMAND", 1));
 
         Broadcast = new Receiver();
+        NetworkState = new NetworkStateReceiver();
 
         IntentFilter filter = new IntentFilter(BROADCAST_ACTION);
         filter.addCategory(Intent.CATEGORY_DEFAULT);
+
+        IntentFilter networkFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        networkFilter.addCategory(Intent.CATEGORY_DEFAULT);
+
         registerReceiver(Broadcast, filter);
+        registerReceiver(NetworkState, networkFilter);
 
     }
 
@@ -141,12 +150,39 @@ public class MyActivity extends Activity {
                         break;
                     }
                 case -1: {
-                    Toast toast = Toast.makeText(context, "озникла какая-то ошибка", Toast.LENGTH_SHORT);
-                    toast.show();
+//                    Toast toast = Toast.makeText(context, "Возникла какая-то ошибка", Toast.LENGTH_LONG);
+//                    toast.show();
                     break;
                 }
             }
 
+        }
+    }
+
+    public class NetworkStateReceiver extends BroadcastReceiver {
+        private static final String TAG = "NetworkStateReceiver";
+        private int previousState = 0;
+        public NetworkStateReceiver() {}
+        @Override
+        public void onReceive(final Context context, final Intent intent) {
+
+            Log.d(TAG, "Network connectivity change");
+
+            if (intent.getExtras() != null) {
+                final ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                final NetworkInfo ni = connectivityManager.getActiveNetworkInfo();
+
+                if (ni != null && ni.isConnectedOrConnecting() && previousState == 0) {
+                    Log.i(TAG, "Network " + ni.getTypeName() + " connected");
+                    startService(new Intent(MyActivity.this, TranslatorService.class).putExtra("COMMAND", 1));
+                    previousState = 1;
+                } else if (intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, Boolean.FALSE)) {
+                    Toast toast = Toast.makeText(context, "Отсутствует соединение с интернетом", Toast.LENGTH_LONG);
+                    toast.show();
+                    previousState = 0;
+                    Log.d(TAG, "There's no network connectivity");
+                }
+            }
         }
     }
 
