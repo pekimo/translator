@@ -19,6 +19,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -82,6 +84,7 @@ public class MyActivity extends Activity {
             langsReductions.put((String)jo.get(n), n);
         }
         Log.d("LOG_TAG", "Reciever 333");
+        Collections.sort(langs);
     }
 
     public static String getReductions(String key) {

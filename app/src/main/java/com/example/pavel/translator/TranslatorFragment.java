@@ -44,7 +44,7 @@ public class TranslatorFragment extends Fragment {
         SpnOn = (Spinner) view.findViewById(R.id.spn_language_on);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.row_spenner, MyActivity.getLangs());
+                R.layout.row_spenner, R.id.text_row, MyActivity.getLangs());
 
         SpnFrom.setAdapter(adapter);
         SpnOn.setAdapter(adapter);
@@ -86,10 +86,7 @@ public class TranslatorFragment extends Fragment {
         EditTextString.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-//                Integer keyCode = keyEvent.getKeyCode();
-//                Log.d("Event", keyEvent.toString());
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-//                    Log.d("KEY", keyCode.toString());
                     InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
                             Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(EditTextString.getWindowToken(), 0);
