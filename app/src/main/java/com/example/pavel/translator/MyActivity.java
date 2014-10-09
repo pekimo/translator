@@ -176,7 +176,7 @@ public class MyActivity extends Activity {
                     Log.i(TAG, "Network " + ni.getTypeName() + " connected");
                     startService(new Intent(MyActivity.this, TranslatorService.class).putExtra("COMMAND", 1));
                     previousState = 1;
-                } else if (intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, Boolean.FALSE)) {
+                } else if (intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, Boolean.FALSE)  && previousState == 1) {
                     Toast toast = Toast.makeText(context, "Отсутствует соединение с интернетом", Toast.LENGTH_LONG);
                     toast.show();
                     previousState = 0;
