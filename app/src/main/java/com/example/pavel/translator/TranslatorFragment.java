@@ -58,12 +58,7 @@ public class TranslatorFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-                String dirs = parseSpinner();
-                getActivity().startService(new Intent(getActivity(), TranslatorService.class)
-                        .putExtra("COMMAND", 2)
-                        .putExtra("TEXT", EditTextString.getText().toString())
-                        .putExtra("DIRS", dirs));
-
+                sendRequest();
             }
 
             @Override
@@ -91,13 +86,7 @@ public class TranslatorFragment extends Fragment {
                             Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(EditTextString.getWindowToken(), 0);
                 }
-                String dirs = parseSpinner();
-                getActivity().startService(new Intent(getActivity(), TranslatorService.class)
-                        .putExtra("COMMAND", 2)
-                        .putExtra("TEXT", EditTextString.getText().toString())
-                        .putExtra("DIRS", dirs));
-                Log.d("DIRS____", dirs);
-
+                sendRequest();
                 return false;
             }
         });
@@ -108,13 +97,30 @@ public class TranslatorFragment extends Fragment {
         getActivity().registerReceiver(Broadcast, filter);
 
         return view;
-
     }
 
     public String parseSpinner() {
         String from = SpnFrom.getSelectedItem().toString();
         String on = SpnOn.getSelectedItem().toString();
         return MyActivity.getReductions(from) + "-" + MyActivity.getReductions(on);
+    }
+
+
+    public void sendRequest() {
+        String dirs = parseSpinner();
+
+        String text = EditTextString.getText().toString();
+        if (text.equals("")) {
+            getActivity().startService(new Intent(getActivity(), TranslatorService.class)
+                    .putExtra("COMMAND", 2)
+                    .putExtra("TEXT", text)
+                    .putExtra("DIRS", dirs));
+        }
+        else {
+            Log.d("SendRequest", "Пустая строка");
+        }
+
+
     }
 
 }
