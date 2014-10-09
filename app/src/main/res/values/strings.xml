@@ -6,6 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="swap_description">Swap languages</string>
+    <string name="edit_hint">Введите слово</string>
     <color name="text_view_color">#DADADA</color>
 
 </resources>

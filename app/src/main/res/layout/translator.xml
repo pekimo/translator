@@ -54,7 +54,7 @@
                 android:id="@+id/editTextString"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Введите слово"
+                android:hint="@string/ru_app_name"
                 android:imeOptions="actionDone"
                 android:singleLine="true"
                 android:layout_weight="1"
@@ -65,7 +65,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Перевод"
                 android:textSize="20sp"
                 android:padding="10dp"
                 android:background="@color/text_view_color"/>
