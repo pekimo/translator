@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -63,11 +64,11 @@ public class TranslatorFragment extends Fragment {
 
         EditTextString.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                Integer keyCode = keyEvent.getKeyCode();
-                Log.d("Event", keyEvent.toString());
-                if (keyEvent.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                    Log.d("KEY", keyCode.toString());
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+//                Integer keyCode = keyEvent.getKeyCode();
+//                Log.d("Event", keyEvent.toString());
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                    Log.d("KEY", keyCode.toString());
                     InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
                             Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(EditTextString.getWindowToken(), 0);
