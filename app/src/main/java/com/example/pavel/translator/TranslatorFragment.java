@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -49,6 +50,24 @@ public class TranslatorFragment extends Fragment {
 
         SpnFrom.setSelection(MyActivity.getPositionLand("Русский"));
         SpnOn.setSelection(MyActivity.getPositionLand("Английский"));
+
+        SpnOn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                String dirs = parseSpinner();
+                getActivity().startService(new Intent(getActivity(), TranslatorService.class)
+                        .putExtra("COMMAND", 2)
+                        .putExtra("TEXT", EditTextString.getText().toString())
+                        .putExtra("DIRS", dirs));
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         BtnSwap = (ImageButton) view.findViewById(R.id.btn_swap);
         BtnSwap.setOnClickListener(new View.OnClickListener() {
