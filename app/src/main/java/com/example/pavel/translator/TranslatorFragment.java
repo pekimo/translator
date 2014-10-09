@@ -18,7 +18,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.util.Log;
 
 public class TranslatorFragment extends Fragment {
 
@@ -58,12 +58,16 @@ public class TranslatorFragment extends Fragment {
             }
         });
 
-        TextViewString.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        EditTextString.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                    getActivity().getWindow().setSoftInputMode(
-                        WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                Integer keyCode = keyEvent.getKeyCode();
+                Log.d("Event", keyEvent.toString());
+                if (keyEvent.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    Log.d("KEY", keyCode.toString());
+                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(EditTextString.getWindowToken(), 0);
                 }
                 return false;
             }
