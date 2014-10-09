@@ -29,8 +29,9 @@ public class MyActivity extends Activity {
     public Receiver Broadcast;
     public static final String Key = "Dirs";
     public static final String Value = "Langs";
-    //private static HashSet<String> dirs = new HashSet<String>();
-    public static ArrayList<HashMap<String, String>> langs = new ArrayList<HashMap<String, String>>();
+    public static ArrayList<String> langs = new ArrayList<String>();
+    public static ArrayList<String> dirs = new ArrayList<String>();
+    public static HashMap<String, String> langsReductions = new HashMap<String, String>();
 
     public static final String Error = "ERROR";
 
@@ -58,32 +59,38 @@ public class MyActivity extends Activity {
 
     private void parseDirsLangs(String str) throws Exception {
         JSONObject obj = new JSONObject(str);
-//        JSONArray dirs_ = obj.getJSONArray("dirs");
-//        JSONArrayToHashSet(dirs_, dirs);
+        JSONArray dirs_ = obj.getJSONArray("dirs");
+        JSONArrayToHashSet(dirs_);
         JSONObject langs_ = obj.getJSONObject("langs");
         JSONObjectToHashMap(langs_);
     }
 
-//    private void JSONArrayToHashSet(JSONArray ja) throws JSONException {
-//        for (int i = 0; i < ja.length(); i++) {
-//            hs.add((String)ja.get(i));
-//        }
-//    }
+    private void JSONArrayToHashSet(JSONArray ja) throws JSONException {
+        for (int i = 0; i < ja.length(); i++) {
+            dirs.add((String)ja.get(i));
+        }
+    }
 
     private void JSONObjectToHashMap(JSONObject jo) throws JSONException {
         Iterator it = jo.keys();
         while (it.hasNext()) {
-            HashMap<String, String> item = new HashMap<String, String>();
             String n = (String)it.next();
-            item.put(Key, n);
-            item.put(Value, (String)jo.get(n));
-            langs.add(item);
+            langs.add((String)jo.get(n));
+            langsReductions.put((String)jo.get(n), n);
         }
         Log.d("LOG_TAG", "Reciever 333");
     }
 
 
-    public static ArrayList<HashMap<String, String>> getLangs() {
+    public static HashMap<String, String> getLangsReductions() {
+        return langsReductions;
+    }
+
+    public static ArrayList<String> getDirs() {
+        return dirs;
+    }
+
+    public static ArrayList<String> getLangs() {
         return langs;
     }
 
@@ -100,7 +107,7 @@ public class MyActivity extends Activity {
             switch (command) {
                 case 1: {
                     Log.d("LOG_TAG", "Reciever 222");
-                    String langs = intent.getStringExtra("LANGS");
+                    String langs = intent.getStringExtra("DATA");
                     try {
                         parseDirsLangs(langs);
                     } catch (Exception e) {

@@ -36,7 +36,8 @@ public class TranslatorFragment extends Fragment {
         SpnFrom = (Spinner) view.findViewById(R.id.spn_language_from);
         SpnOn = (Spinner) view.findViewById(R.id.spn_language_on);
 
-        SimpleAdapter adapter = new SimpleAdapter(getActivity(), MyActivity.getLangs(), android.R.layout.simple_spinner_item, new String[] {"Langs"}, new int[] {android.R.layout.simple_spinner_dropdown_item} );
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_spinner_item,  MyActivity.getLangs());
 
         SpnFrom.setAdapter(adapter);
         SpnOn.setAdapter(adapter);
